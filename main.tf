@@ -1,5 +1,9 @@
 resource "aws_s3_bucket" "terraform_state" {
   bucket_prefix = lower("${var.project}-tfstate-")
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_dynamodb_table" "terraform_state_lock" {
@@ -10,5 +14,9 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
   attribute {
     name = "LockID"
     type = "S"
+  }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }

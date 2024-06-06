@@ -50,3 +50,13 @@ terraform init -backend-config="backend.local"
 Note that the Terraform state has been migrated from local state file to S3.
 
 And from here you can continue on the Terraform project to manage your cloud resources.
+
+## Additional note - avoid deletion of S3 Bucket and DynamoDB Table
+
+You should apply the lifecycle to avoid resource deletion. You don't want to lose your state file!
+
+```
+lifecycle {
+  prevent_destroy = true
+}
+```
